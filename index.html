@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DMBU | Presentación</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-principal: #f3eee6;
+            --bg-secundario: #fffaf3;
+            --madera-oscura: #4a2f1b;
+            --madera-media: #7a5230;
+            --madera-clara: #b98b5d;
+            --crema: #f8efe1;
+            --texto-principal: #2b2118;
+            --texto-secundario: #6b5a48;
+            --borde-suave: #d8c3a5;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-principal);
+            color: var(--texto-principal);
+            font-family: 'Outfit', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            background-color: var(--madera-oscura);
+            border-bottom: 4px solid var(--madera-clara);
+            padding: 1rem 2rem;
+        }
+
+        .navbar-brand {
+            font-family: 'Playfair Display', serif;
+            color: var(--crema) !important;
+            font-weight: 700;
+            letter-spacing: 3px;
+            font-size: 1.7rem;
+        }
+
+        .nav-boton {
+            background-color: var(--crema);
+            color: var(--madera-oscura);
+            border: 1px solid var(--madera-clara);
+            font-weight: 700;
+            padding: 0.6rem 1rem;
+            border-radius: 30px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+            margin-left: 8px;
+            font-size: 0.9rem;
+        }
+
+        .nav-boton:hover {
+            background-color: var(--madera-clara);
+            color: var(--crema);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.22);
+            text-decoration: none;
+        }
+
+        .hero-section {
+            padding: 90px 0 80px;
+            background:
+                linear-gradient(rgba(74, 47, 27, 0.86), rgba(74, 47, 27, 0.86)),
+                linear-gradient(135deg, #4a2f1b, #8a623b);
+            text-align: center;
+            color: var(--crema);
+        }
+
+        .hero-label {
+            display: inline-block;
+            background-color: rgba(248, 239, 225, 0.12);
+            border: 1px solid rgba(248, 239, 225, 0.35);
+            color: var(--crema);
+            padding: 8px 14px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: #ead8bf;
+            max-width: 760px;
+            line-height: 1.6;
+            margin: 0 auto;
+        }
+
+        .visualizer-mock {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            height: 45px;
+            margin-top: 25px;
+        }
+
+        .bar {
+            width: 6px;
+            background-color: var(--madera-clara);
+            border-radius: 10px;
+            animation: bounce 1.2s infinite alternate;
+        }
+
+        @keyframes bounce {
+            from { height: 8px; }
+            to { height: 35px; }
+        }
+
+        main {
+            margin-top: -45px;
+        }
+
+        .contenedor {
+            width: 90%;
+            max-width: 1100px;
+            margin: 0 auto 70px;
+        }
+
+        .tarjeta {
+            background-color: var(--bg-secundario);
+            border: 1px solid var(--borde-suave);
+            border-radius: 18px;
+            padding: 30px;
+            margin-bottom: 28px;
+            box-shadow: 0 18px 40px rgba(74, 47, 27, 0.16);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        .tarjeta:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 26px 55px rgba(74, 47, 27, 0.24);
+            border-color: var(--madera-clara);
+        }
+
+        .menu {
+            text-align: center;
+        }
+
+        .menu h2,
+        .seccion h2,
+        .footer h2 {
+            font-family: 'Playfair Display', serif;
+            color: var(--madera-oscura);
+            font-weight: 700;
+        }
+
+        .menu-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .menu a,
+        .boton-inicio {
+            display: inline-block;
+            background-color: var(--crema);
+            border: 1px solid var(--madera-clara);
+            color: var(--madera-oscura);
+            padding: 8px 14px;
+            border-radius: 30px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .menu a:hover,
+        .boton-inicio:hover {
+            background-color: var(--madera-media);
+            color: var(--crema);
+            transform: translateY(-2px);
+            text-decoration: none;
+        }
+
+        .encabezado-seccion {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--borde-suave);
+            padding-bottom: 12px;
+            margin-bottom: 18px;
+            gap: 15px;
+        }
+
+        h1, h2, h3 {
+            margin-top: 0;
+        }
+
+        h3 {
+            color: var(--madera-media);
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        p, li {
+            color: var(--texto-principal);
+            line-height: 1.6;
+        }
+
+        strong {
+            color: var(--madera-oscura);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            overflow: hidden;
+            border-radius: 14px;
+            margin-top: 10px;
+            background-color: #fffdf8;
+            border: 1px solid var(--borde-suave);
+        }
+
+        td, th {
+            border-bottom: 1px solid var(--borde-suave);
+            padding: 18px;
+            vertical-align: top;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        td img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+            border-radius: 12px;
+            border: 1px solid var(--borde-suave);
+        }
+
+        .centrado {
+            text-align: center;
+            width: 40%;
+            padding: 18px;
+        }
+
+        .celda-video {
+            height: 250px;
+            padding: 18px;
+        }
+
+        .video-favorito {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+            border-radius: 12px;
+            border: 1px solid var(--borde-suave);
+        }
+
+        iframe {
+            width: 100%;
+            height: 300px;
+            border: 1px solid var(--borde-suave);
+            border-radius: 12px;
+            background-color: #fffdf8;
+        }
+
+        a {
+            color: var(--madera-media);
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: var(--madera-oscura);
+            text-decoration: underline;
+        }
+
+        .carrusel {
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .carrusel-pista {
+            display: flex;
+            width: max-content;
+            animation: moverCarrusel 35s linear infinite;
+        }
+
+        .carrusel:hover .carrusel-pista {
+            animation-play-state: paused;
+        }
+
+        .imagen-carrusel {
+            width: 220px;
+            height: 180px;
+            object-fit: cover;
+            display: block;
+            border-right: 1px solid var(--borde-suave);
+        }
+
+        @keyframes moverCarrusel {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(-50%);
+            }
+        }
+
+        .cuadro-letra {
+            height: 180px;
+            overflow-y: auto;
+            border: 1px solid var(--borde-suave);
+            padding: 14px;
+            margin-top: 10px;
+            background-color: #fffaf3;
+            border-radius: 12px;
+        }
+
+        .cuadro-letra p {
+            margin-top: 0;
+            line-height: 1.5;
+        }
+
+        .footer {
+            width: 90%;
+            max-width: 1100px;
+            margin: 0 auto 70px;
+        }
+
+        .redes-logos {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            padding: 20px 0 5px;
+            flex-wrap: wrap;
+        }
+
+        .redes-logos a {
+            display: inline-block;
+            background-color: #fffdf8;
+            border: 1px solid var(--borde-suave);
+            border-radius: 18px;
+            padding: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .redes-logos a:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 22px rgba(74, 47, 27, 0.2);
+            text-decoration: none;
+        }
+
+        .redes-logos img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            display: block;
+        }
+
+        .linea-final {
+            height: 6px;
+            background: linear-gradient(90deg, var(--madera-oscura), var(--madera-clara), var(--madera-oscura));
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            z-index: 10;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem;
+            }
+
+            .navbar .container {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .ms-auto {
+                margin-left: 0 !important;
+            }
+
+            .hero-section {
+                padding: 70px 0 70px;
+            }
+
+            .hero-title {
+                font-size: 2.7rem;
+            }
+
+            .tarjeta {
+                padding: 22px;
+            }
+
+            .encabezado-seccion {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            table,
+            tbody,
+            tr,
+            td {
+                display: block;
+                width: 100%;
+            }
+
+            .centrado {
+                width: 100%;
+            }
+
+            td img,
+            .video-favorito {
+                height: 220px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navegación -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#inicio">DMBU SOUND</a>
+
+            <div class="ms-auto">
+                <a href="formulario.html" class="nav-boton">FORMULARIO</a>
+                <a href="#redes-sociales" class="nav-boton">REDES</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <header class="hero-section" id="inicio">
+        <div class="container">
+
+            <h1 class="hero-title">Dylan Bernal Ureña</h1>
+
+         </div>
+    </header>
+
+    <main class="contenedor">
+
+        <!-- Carrusel -->
+        <div class="tarjeta carrusel">
+            <div class="carrusel-pista">
+                <img class="imagen-carrusel" src="1.jfif" alt="Imagen 1">
+                <img class="imagen-carrusel" src="2.jfif" alt="Imagen 2">
+                <img class="imagen-carrusel" src="3.jfif" alt="Imagen 3">
+                <img class="imagen-carrusel" src="4.jfif" alt="Imagen 4">
+                <img class="imagen-carrusel" src="5.jfif" alt="Imagen 5">
+
+                <img class="imagen-carrusel" src="1.jfif" alt="Imagen 1">
+                <img class="imagen-carrusel" src="2.jfif" alt="Imagen 2">
+                <img class="imagen-carrusel" src="3.jfif" alt="Imagen 3">
+                <img class="imagen-carrusel" src="4.jfif" alt="Imagen 4">
+                <img class="imagen-carrusel" src="5.jfif" alt="Imagen 5">
+            </div>
+        </div>
+
+        <!-- Índice -->
+        <div class="tarjeta menu">
+            <h2>Índice</h2>
+
+            <div class="menu-links">
+                <a href="#datos-personales">Datos personales</a>
+                <a href="#instituto-trabajo">Instituto o trabajo</a>
+                <a href="#datos-generales">Datos generales</a>
+                <a href="#cancion-favorita">Canción favorita</a>
+                <a href="#juego-favorito">Juego favorito</a>
+                <a href="#mision-vision">Misión y visión</a>
+                <a href="#tareas-destacadas">Tareas destacadas</a>
+                <a href="#redes-sociales">Redes sociales</a>
+            </div>
+        </div>
+
+        <!-- Datos personales -->
+        <section class="tarjeta seccion" id="datos-personales">
+            <div class="encabezado-seccion">
+                <h2>Datos personales</h2>
+                <a class="boton-inicio" href="#inicio">Inicio</a>
+            </div>
+
+            <table>
+                <tr>
+                    <td>
+                        <p><strong>Nombre:</strong> Dylan Michael Bernal Ureña</p>
+                        <p><strong>Edad:</strong> 22 años</p>
+                        <p><strong>Pasatiempos:</strong></p>
+                        <ul>
+                            <li>Escuchar música</li>
+                            <li>Practicar piano</li>
+                            <li>Componer</li>
+                            <li>Leer</li>
+                            <li>Escribir</li>
+                        </ul>
+                    </td>
+
+                    <td class="centrado">
+                        <img src="yo.jpg" alt="Imagen de perfil">
+                    </td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- Instituto o trabajo -->
+        <section class="tarjeta seccion" id="instituto-trabajo">
+            <div class="encabezado-seccion">
+                <h2>Instituto o trabajo</h2>
+                <a class="boton-inicio" href="#inicio">Inicio</a>
+            </div>
+
+            <table>
+                <tr>
+                    <td>
+                        <p>Universidad Técnica Privada Cosmos — UNITEPC.</p>
+                    </td>
+
+                    <td class="centrado">
+                        <img src="unitepc.jpg" alt="Logo de UNITEPC">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <p>Universidad Mayor de San Andrés — UMSA.</p>
+                    </td>
+
+                    <td class="centrado">
+                        <img src="umsa.png" alt="Logo de la UMSA">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="2">
+                        <p>Actualmente curso Ingeniería de Sonido y Física.</p>
+                        <p>Ofrezco tutorías en cálculo, física, álgebra lineal, estadística, entre otros.</p>
+                    </td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- Datos generales -->
+        <section class="tarjeta seccion" id="datos-generales">
+            <div class="encabezado-seccion">
+                <h2>Datos generales</h2>
+                <a class="boton-inicio" href="#inicio">Inicio</a>
+            </div>
+
+            <table>
+                <tr>
+                    <td>
+                        <p><strong>Nacionalidad:</strong> Bolivia</p>
+                        <p><strong>Idioma:</strong> Español</p>
+                        <p><strong>Color favorito:</strong> Violeta</p>
+                        <p><strong>Ubicación general:</strong> La Paz, Bolivia</p>
+                        <a href="https://www.google.com/maps/place/La+Paz,+Bolivia" target="_blank">
+                            Abrir ubicación general en Maps
+                        </a>
+                    </td>
+
+                    <td class="centrado">
+                        <img src="maps.png" alt="Mapa de referencia">
+                    </td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- Canción favorita -->
+        <section class="tarjeta seccion" id="cancion-favorita">
+            <div class="encabezado-seccion">
+                <h2>Canción favorita</h2>
+                <a class="boton-inicio" href="#inicio">Inicio</a>
+            </div>
+
+            <table>
+                <tr>
+                    <td>
+                        <p><strong>Título:</strong> Voodoo?</p>
+                        <p><strong>Artista:</strong> L'Impératrice</p>
+
+                        <a href="Limperatrice.mp4" target="_blank">
+                            Abrir vídeo
+                        </a>
+
+    			<h3>Letra</h3>
+
+    			<div class="cuadro-letra">
+       			 <p>
+            		I'm not being cranky <br>
+			I just hate this party <br>
+			Think I might as well <br>
+			Spend a night in hell <br>
+			Reading torture magazine <br>
+			Than pretending I'm one of you <br>
+			They move wild and carefree <br>
+			As hip as hip can be <br>
+			I think I should split <br>
+			But wait a minute <br>
+			I feel something in my knees <br>
+			Is it music or new voodoo?
+        		</p>
+
+        		<p>
+            		Can I resist this? <br>
+			Am I off my head, what's shaking my hips? <br>
+			Can I resist this? <br>
+			It's the kind of beat I just can't dismiss
+        		</p>
+
+        		<p>
+            		It's too early for me <br>
+			I can't set myself free <br>
+			Can we sit aside? <br>
+			I'm not qualified <br>
+			I'm the worst you've ever seen <br>
+			I'm as groovy as a bamboo <br>
+			Air crawling in air sea <br>
+			I feel all eyes on me <br>
+			They have so much grace <br>
+			And I'm out of place <br>
+			Why am I feeling like a queen? <br>
+			Is it music or new voodoo?
+        		</p>
+
+        		<p>
+            		Can I resist this? <br>
+			Am I off my head, what's shaking my hips? <br>
+			Can I resist this? <br>
+			It's the kind of beat I just can't dismiss
+        		</p>
+
+        		<p>
+           		(Ooh, ooh, ooh, ooh, ooh, ooh-ooh) <br>
+			(Ooh, ooh, ooh, ooh, ooh, ooh-ooh) <br>
+			(Ooh, ooh, ooh, ooh, ooh, ooh-ooh) <br>
+			(Ooh, ooh, ooh, ooh, ooh, ooh-ooh-ooh)
+        		</p>
+   			 </div>
+			</td>
+                     <td class="centrado celda-video">
+                        <video class="video-favorito" controls>
+                            <source src="Limperatrice.mp4" type="video/mp4">
+                            Tu navegador no soporta la reproducción de vídeo.
+                        </video>
+                    </td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- Juego favorito -->
+        <section class="tarjeta seccion" id="juego-favorito">
+            <div class="encabezado-seccion">
+                <h2>Juego favorito</h2>
+                <a class="boton-inicio" href="#inicio">Inicio</a>
+            </div>
+
+            <table>
+                <tr>
+                    <td>
+                        <h3>Videojuego favorito</h3>
+                        <p><strong>Nombre:</strong> Bloodborne</p>
+
+                        <p><strong>Logros destacados:</strong></p>
+                        <ul>
+                            <li>Completé Bloodborne en modalidad <strong>no hit</strong>, evitando recibir daño durante la partida.</li>
+                            <li>Dominio avanzado de patrones de jefes, gestión de riesgo y toma rápida de decisiones.</li>
+                            <li>Experiencia en análisis de movimientos enemigos, control de tiempos y optimización de rutas.</li>
+                        </ul>
+                    </td>
+
+                    <td class="centrado">
+                        <img src="bloodborne.jpg" alt="Imagen de Bloodborne">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <h3>Juego de cartas favorito</h3>
+                        <p><strong>Nombre:</strong> Blackjack</p>
+
+                        <p><strong>Habilidades destacadas:</strong></p>
+                        <ul>
+                            <li>Conocimiento de estrategias básicas de Blackjack.</li>
+                            <li>Capacidad para realizar conteo de cartas como ejercicio de memoria, probabilidad y atención.</li>
+                            <li>Aplicación de pensamiento estadístico para evaluar riesgo, ventaja y toma de decisiones.</li>
+                        </ul>
+                    </td>
+
+                    <td class="centrado">
+                        <img src="blackjack.jpg" alt="Imagen de Blackjack">
+                    </td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- Misión y visión -->
+        <section class="tarjeta seccion" id="mision-vision">
+            <div class="encabezado-seccion">
+                <h2>Misión y visión</h2>
+                <a class="boton-inicio" href="#inicio">Inicio</a>
+            </div>
+
+            <table>
+                <tr>
+                    <td>
+                        <h3>Misión</h3>
+                        <p>
+                            Mantener un compromiso constante con la formación académica hasta concluir ambas carreras,
+                            continuar perfeccionando la práctica del piano y seguir creciendo a través del estudio,
+                            la constancia y la exploración de nuevos conocimientos.
+                        </p>
+                    </td>
+
+                    <td class="centrado">
+                        <img src="mision.png" alt="Imagen de referencia de misión">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <h3>Visión</h3>
+                        <p>
+                            Desarrollar una trayectoria que permita publicar artículos y escritos propios,
+                            continuar la carrera de física en el extranjero con especial interés en física de partículas
+                            o física de fusión nuclear, y alcanzar también una formación sólida como intérprete de piano.
+                        </p>
+                    </td>
+
+                    <td class="centrado">
+                        <img src="vision.png" alt="Imagen de referencia de visión">
+                    </td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- Tareas destacadas -->
+        <section class="tarjeta seccion" id="tareas-destacadas">
+            <div class="encabezado-seccion">
+                <h2>Tareas destacadas</h2>
+                <a class="boton-inicio" href="#inicio">Inicio</a>
+            </div>
+
+            <table>
+                <tr>
+                    <td>
+                        <p><strong>Tarea 1</strong></p>
+                        <iframe src="https://docs.google.com/spreadsheets/d/1CPD_OC3y9s4Oiz_NRoTPxPu0T7A4fFdR5P_V4Fju6ss/edit?gid=1818829639#gid=1818829639"></iframe>
+                    </td>
+                </tr>
+            </table>
+
+            <br>
+
+            <table>
+                <tr>
+                    <td>
+                        <p><strong>Tarea 2</strong></p>
+                        <iframe src="https://docs.google.com/spreadsheets/d/1CPD_OC3y9s4Oiz_NRoTPxPu0T7A4fFdR5P_V4Fju6ss/edit?gid=488305673#gid=488305673"></iframe>
+                    </td>
+                </tr>
+            </table>
+
+            <br>
+
+            <table>
+                <tr>
+                    <td>
+                        <p><strong>Tarea 3</strong></p>
+                        <iframe src="https://docs.google.com/spreadsheets/d/1CPD_OC3y9s4Oiz_NRoTPxPu0T7A4fFdR5P_V4Fju6ss/edit?gid=645256274#gid=645256274"></iframe>
+                    </td>
+                </tr>
+            </table>
+        </section>
+
+    </main>
+
+    <!-- Redes sociales -->
+    <footer class="tarjeta footer" id="redes-sociales">
+        <div class="encabezado-seccion">
+            <h2>Redes sociales</h2>
+            <a class="boton-inicio" href="#inicio">Inicio</a>
+        </div>
+
+        <div class="redes-logos">
+            <a href="https://www.instagram.com/dylancosmos715/" target="_blank">
+                <img src="instagram.png" alt="Instagram">
+            </a>
+
+            <a href="https://www.tiktok.com/@dylancosmos715" target="_blank">
+                <img src="tiktok.png" alt="TikTok">
+            </a>
+
+            <a href="https://www.youtube.com/@DylanCosmos-n5r" target="_blank">
+                <img src="youtube.png" alt="YouTube">
+            </a>
+        </div>
+    </footer>
+
+    <div class="linea-final"></div>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

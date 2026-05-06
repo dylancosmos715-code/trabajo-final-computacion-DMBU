@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DMBU | Laboratorio de Sonido</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-principal: #f3eee6;
+            --bg-secundario: #fffaf3;
+            --madera-oscura: #4a2f1b;
+            --madera-media: #7a5230;
+            --madera-clara: #b98b5d;
+            --crema: #f8efe1;
+            --texto-principal: #2b2118;
+            --texto-secundario: #6b5a48;
+            --borde-suave: #d8c3a5;
+            --verde-confirmacion: #3f6f45;
+            --rojo-error: #8a2f2f;
+        }
+
+        body {
+            background-color: var(--bg-principal);
+            color: var(--texto-principal);
+            font-family: 'Outfit', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            background-color: var(--madera-oscura);
+            border-bottom: 4px solid var(--madera-clara);
+            padding: 1rem 2rem;
+        }
+
+        .navbar-brand {
+            font-family: 'Playfair Display', serif;
+            color: var(--crema) !important;
+            font-weight: 700;
+            letter-spacing: 3px;
+            font-size: 1.7rem;
+        }
+
+        .badge-personal {
+            background-color: var(--crema);
+            color: var(--madera-oscura);
+            border: 1px solid var(--madera-clara);
+            font-weight: 600;
+            padding: 0.6rem 1rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .badge-personal:hover {
+            background-color: var(--madera-clara);
+            color: var(--crema);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.22);
+        }
+
+        .hero-section {
+            padding: 90px 0 80px;
+            background:
+                linear-gradient(rgba(74, 47, 27, 0.86), rgba(74, 47, 27, 0.86)),
+                linear-gradient(135deg, #4a2f1b, #8a623b);
+            text-align: center;
+            color: var(--crema);
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: #ead8bf;
+            max-width: 700px;
+            line-height: 1.6;
+            margin: 0 auto;
+        }
+
+        .hero-label {
+            display: inline-block;
+            background-color: rgba(248, 239, 225, 0.12);
+            border: 1px solid rgba(248, 239, 225, 0.35);
+            color: var(--crema);
+            padding: 8px 14px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .visualizer-mock {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            height: 45px;
+            margin-top: 25px;
+        }
+
+        .bar {
+            width: 6px;
+            background-color: var(--madera-clara);
+            border-radius: 10px;
+            animation: bounce 1.2s infinite alternate;
+        }
+
+        @keyframes bounce {
+            from { height: 8px; }
+            to { height: 35px; }
+        }
+
+        main {
+            margin-top: -45px;
+        }
+
+        .upload-container {
+            background-color: var(--bg-secundario);
+            border: 1px solid var(--borde-suave);
+            border-radius: 18px;
+            padding: 38px;
+            box-shadow: 0 18px 40px rgba(74, 47, 27, 0.18);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        .upload-container:hover {
+            transform: translateY(-8px) scale(1.01);
+            box-shadow: 0 26px 55px rgba(74, 47, 27, 0.28);
+            border-color: var(--madera-clara);
+        }
+
+        .upload-container h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--madera-oscura);
+            font-weight: 700;
+        }
+
+        .descripcion-formulario {
+            color: var(--texto-secundario);
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 0.95rem;
+        }
+
+        .form-label {
+            color: var(--madera-oscura);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-control,
+        .form-select {
+            background-color: #fffdf8;
+            border: 1px solid var(--borde-suave);
+            color: var(--texto-principal);
+            border-radius: 10px;
+            padding: 12px;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            background-color: #fffdf8;
+            border-color: var(--madera-media);
+            color: var(--texto-principal);
+            box-shadow: 0 0 0 0.2rem rgba(122, 82, 48, 0.18);
+        }
+
+        .form-text {
+            color: var(--texto-secundario);
+            font-size: 0.82rem;
+        }
+
+        .btn-sonic {
+            background-color: var(--madera-media);
+            color: var(--crema);
+            font-weight: 700;
+            border: none;
+            padding: 13px 30px;
+            border-radius: 10px;
+            text-transform: uppercase;
+            transition: all 0.3s;
+            width: 100%;
+            margin-top: 20px;
+            letter-spacing: 1px;
+        }
+
+        .btn-sonic:hover {
+            background-color: var(--madera-oscura);
+            color: var(--crema);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 18px rgba(74, 47, 27, 0.28);
+        }
+
+        .btn-sonic:disabled {
+            opacity: 0.75;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .mensaje-envio {
+            display: none;
+            margin-top: 20px;
+            padding: 14px 16px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .mensaje-envio.ok {
+            display: block;
+            background-color: rgba(63, 111, 69, 0.12);
+            border: 1px solid rgba(63, 111, 69, 0.35);
+            color: var(--verde-confirmacion);
+            animation: aparecerMensaje 0.35s ease;
+        }
+
+        .mensaje-envio.error {
+            display: block;
+            background-color: rgba(138, 47, 47, 0.12);
+            border: 1px solid rgba(138, 47, 47, 0.35);
+            color: var(--rojo-error);
+            animation: aparecerMensaje 0.35s ease;
+        }
+
+        @keyframes aparecerMensaje {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        footer {
+            padding: 40px 0;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--texto-secundario);
+            border-top: 1px solid var(--borde-suave);
+            margin-top: 70px;
+            background-color: #eadcc8;
+        }
+
+        .linea-final {
+            height: 6px;
+            background: linear-gradient(90deg, var(--madera-oscura), var(--madera-clara), var(--madera-oscura));
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+        }
+
+        iframe[name="iframeOculto"] {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 70px 0 70px;
+            }
+
+            .hero-title {
+                font-size: 2.7rem;
+            }
+
+            .upload-container {
+                padding: 26px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navegación -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">DMBU SOUND</a>
+
+            <div class="ms-auto">
+                <a href="index.html" class="badge rounded-pill badge-personal">
+                    Pagina Principal
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <header class="hero-section">
+        <div class="container">
+            <span class="hero-label">Recepción de demos • Mezcla • Masterización</span>
+
+            <h1 class="hero-title">Laboratorio de Sonido</h1>
+
+            <p class="hero-subtitle">
+                Sube tu demo, pista o proyecto para revisión técnica,
+                mezcla, masterización o comentarios de producción.
+            </p>
+
+            <div class="visualizer-mock">
+                <div class="bar" style="animation-delay: 0.1s"></div>
+                <div class="bar" style="animation-delay: 0.3s"></div>
+                <div class="bar" style="animation-delay: 0.2s"></div>
+                <div class="bar" style="animation-delay: 0.5s"></div>
+                <div class="bar" style="animation-delay: 0.4s"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenido Principal -->
+    <main class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-7 col-md-9">
+                <div class="upload-container">
+                    <h3 class="text-center mb-2">Portal de carga</h3>
+
+                    <p class="descripcion-formulario">
+                        Completa los datos del proyecto y adjunta el archivo de audio para registrarlo.
+                    </p>
+
+                    <form 
+                        id="formularioAudio"
+                        action="https://script.google.com/macros/s/AKfycbwugItdnRt8dp5lqdXxUUqcBds5lJNFcn9i-P-0efZ3rWkT8gxzhEep1D29LHz2mFdD/exec" 
+                        method="POST"
+                        target="iframeOculto"
+                    >
+                       
+                        <div class="mb-3">
+                            <label class="form-label">ARTISTA O BANDA</label>
+                            <input 
+                                type="text" 
+                                name="artista" 
+                                class="form-control" 
+                                placeholder="Ej: Los Deambulantes"
+                                required
+                            >
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">TÍTULO DEL TRACK</label>
+                            <input 
+                                type="text" 
+                                name="titulo" 
+                                class="form-control" 
+                                placeholder="Ej: Fuga la Oruga - Master"
+                                required
+                            >
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">TIPO DE SERVICIO</label>
+                            <select name="servicio" class="form-select" required>
+                                <option value="" selected disabled>Selecciona una opción</option>
+                                <option value="Revisión de demo">Revisión de demo</option>
+                                <option value="Mezcla">Mezcla</option>
+                                <option value="Masterización">Masterización</option>
+                                <option value="Mezcla y masterización">Mezcla y masterización</option>
+                                <option value="Comentarios de producción">Comentarios de producción</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">SUBIR ARCHIVO DE AUDIO</label>
+
+                            <!-- Este input selecciona el archivo, pero no se manda directamente -->
+                            <input 
+                                id="archivoAudio"
+                                type="file" 
+                                class="form-control" 
+                                accept=".wav,.mp3,.flac,.aiff"
+                                required
+                            >
+
+                            <!-- Estos campos ocultos son los que recibe Apps Script -->
+                            <input id="archivoNombre" type="hidden" name="archivoNombre">
+                            <input id="archivoMime" type="hidden" name="archivoMime">
+                            <input id="archivoBase64" type="hidden" name="archivoBase64">
+
+                            <div class="form-text mt-2">
+                                El archivo se subirá a Drive y se guardará el enlace en Sheets.
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">REFERENCIAS SONORAS</label>
+                            <input 
+                                name="referencias" 
+                                type="text" 
+                                class="form-control" 
+                                placeholder="Ej: sonido cálido, voces al frente, bajo definido..."
+                            >
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">NOTAS DE PRODUCCIÓN</label>
+                            <textarea 
+                                name="notas" 
+                                class="form-control" 
+                                rows="4" 
+                                placeholder="Describe qué buscas: balance, claridad, pegada, espacialidad, correcciones, referencias, etc."
+                            ></textarea>
+                        </div>
+
+                        <button id="botonEnviar" type="submit" class="btn btn-sonic">
+                            Enviar a revisión
+                        </button>
+
+                        <div id="mensajeEnvio" class="mensaje-envio">
+                            Información enviada correctamente.
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2026 DMBU SOUND - Laboratorio de sonido</p>
+            <p class="small">Recepción de archivos • Mezcla • Masterización • Revisión técnica</p>
+        </div>
+    </footer>
+
+    <div class="linea-final"></div>
+
+    <!-- Iframe oculto para que Apps Script responda sin redirigir la página visible -->
+    <iframe name="iframeOculto"></iframe>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        const formularioAudio = document.getElementById('formularioAudio');
+        const mensajeEnvio = document.getElementById('mensajeEnvio');
+        const botonEnviar = document.getElementById('botonEnviar');
+
+        const archivoAudio = document.getElementById('archivoAudio');
+        const archivoNombre = document.getElementById('archivoNombre');
+        const archivoMime = document.getElementById('archivoMime');
+        const archivoBase64 = document.getElementById('archivoBase64');
+
+        formularioAudio.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            mensajeEnvio.className = 'mensaje-envio';
+
+            if (!archivoAudio.files || archivoAudio.files.length === 0) {
+                mensajeEnvio.textContent = 'Selecciona un archivo de audio antes de enviar.';
+                mensajeEnvio.classList.add('error');
+                return;
+            }
+
+            const archivo = archivoAudio.files[0];
+
+            const formatosPermitidos = [
+                'audio/wav',
+                'audio/mpeg',
+                'audio/flac',
+                'audio/aiff',
+                'audio/x-aiff'
+            ];
+
+            const extensionPermitida = /\.(wav|mp3|flac|aiff)$/i.test(archivo.name);
+
+            if (!extensionPermitida) {
+                mensajeEnvio.textContent = 'Formato no permitido. Usa WAV, MP3, FLAC o AIFF.';
+                mensajeEnvio.classList.add('error');
+                return;
+            }
+
+            botonEnviar.textContent = 'Preparando archivo...';
+            botonEnviar.disabled = true;
+
+            const lector = new FileReader();
+
+            lector.onload = function () {
+                const resultado = lector.result;
+
+                archivoNombre.value = archivo.name;
+                archivoMime.value = archivo.type || 'application/octet-stream';
+                archivoBase64.value = resultado.split(',')[1];
+
+                botonEnviar.textContent = 'Enviando...';
+
+                HTMLFormElement.prototype.submit.call(formularioAudio);
+
+                mensajeEnvio.textContent = 'Información enviada correctamente. El archivo se está registrando en Drive y Sheets.';
+                mensajeEnvio.classList.add('ok');
+
+                setTimeout(function () {
+                    botonEnviar.textContent = 'Enviar a revisión';
+                    botonEnviar.disabled = false;
+                    formularioAudio.reset();
+
+                    archivoNombre.value = '';
+                    archivoMime.value = '';
+                    archivoBase64.value = '';
+                }, 3000);
+            };
+
+            lector.onerror = function () {
+                mensajeEnvio.textContent = 'No se pudo leer el archivo. Inténtalo de nuevo.';
+                mensajeEnvio.classList.add('error');
+
+                botonEnviar.textContent = 'Enviar a revisión';
+                botonEnviar.disabled = false;
+            };
+
+            lector.readAsDataURL(archivo);
+        });
+    </script>
+</body>
+</html>
