@@ -378,7 +378,6 @@
                         <div class="mb-3">
                             <label class="form-label">SUBIR ARCHIVO DE AUDIO</label>
 
-                            <!-- Este input selecciona el archivo, pero no se manda directamente -->
                             <input 
                                 id="archivoAudio"
                                 type="file" 
@@ -387,7 +386,6 @@
                                 required
                             >
 
-                            <!-- Estos campos ocultos son los que recibe Apps Script -->
                             <input id="archivoNombre" type="hidden" name="archivoNombre">
                             <input id="archivoMime" type="hidden" name="archivoMime">
                             <input id="archivoBase64" type="hidden" name="archivoBase64">
@@ -419,13 +417,28 @@
 
                         <div class="mb-3">
                             <label class="form-label">MAIL</label>
-				            <input 
+                            <input 
                                 type="email"
-				                name="mail" 
+                                name="mail" 
                                 class="form-control" 
                                 placeholder="Escriba su correo electrónico de contacto"
-				                required
+                                required
                             >
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">CELULAR / WHATSAPP</label>
+                            <input 
+                                type="tel"
+                                name="celular" 
+                                class="form-control" 
+                                placeholder="Ej: +591 71234567"
+                                pattern="^\+[0-9]{1,4}\s?[0-9\s]{6,15}$"
+                                required
+                            >
+                            <div class="form-text mt-2">
+                                Incluya el código de país. Ejemplo: +591 71234567.
+                            </div>
                         </div>
                         
                         <button id="botonEnviar" type="submit" class="btn btn-sonic">
@@ -450,10 +463,8 @@
 
     <div class="linea-final"></div>
 
-    <!-- Iframe oculto para que Apps Script responda sin redirigir la página visible -->
     <iframe name="iframeOculto"></iframe>
 
-    <!-- Bootstrap 5 JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
@@ -478,14 +489,6 @@
             }
 
             const archivo = archivoAudio.files[0];
-
-            const formatosPermitidos = [
-                'audio/wav',
-                'audio/mpeg',
-                'audio/flac',
-                'audio/aiff',
-                'audio/x-aiff'
-            ];
 
             const extensionPermitida = /\.(wav|mp3|flac|aiff)$/i.test(archivo.name);
 
