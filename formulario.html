@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DMBU | Laboratorio de Sonido</title>
 
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
- 
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@25.2.1/build/css/intlTelInput.css">
 
     <style>
         :root {
@@ -182,6 +182,14 @@
         .form-text {
             color: var(--texto-secundario);
             font-size: 0.82rem;
+        }
+
+        .iti {
+            width: 100%;
+        }
+
+        .iti input {
+            width: 100%;
         }
 
         .btn-sonic {
@@ -357,7 +365,6 @@
 </head>
 <body>
 
-
     <nav class="navbar navbar-expand-lg sticky-top">
         <div class="container">
             <a class="navbar-brand" href="#">DMBU SOUND</a>
@@ -369,7 +376,6 @@
             </div>
         </div>
     </nav>
-
 
     <header class="hero-section">
         <div class="container">
@@ -459,7 +465,7 @@
                             <input id="archivoBase64" type="hidden" name="archivoBase64">
 
                             <div class="form-text mt-2">
-                                El archivo se subirá a Drive y se guardará el enlace en Sheets.
+                                Seleccione archivos de audio para subir.
                             </div>
                         </div>
 
@@ -496,16 +502,24 @@
 
                         <div class="mb-3">
                             <label class="form-label">CELULAR / WHATSAPP</label>
+
+                           
                             <input 
+                                id="celularVisible"
                                 type="tel"
-                                name="celular" 
                                 class="form-control" 
-                                placeholder="Ej: +591 71234567"
-                                pattern="^\+[0-9]{1,4}\s?[0-9\s]{6,15}$"
+                                placeholder="Escriba su número de WhatsApp"
                                 required
                             >
+
+                            <input 
+                                id="celular"
+                                type="hidden"
+                                name="celular"
+                            >
+
                             <div class="form-text mt-2">
-                                Incluya el código de país. Ejemplo: +591 71234567.
+                                Seleccione su país y escriba su número.
                             </div>
                         </div>
                         
@@ -531,7 +545,6 @@
 
     <iframe name="iframeOculto"></iframe>
 
-    <!-- Modal interno de confirmación -->
     <div id="modalConfirmacion" class="modal-envio">
         <div class="modal-contenido">
             <h4>Envío completado</h4>
@@ -547,6 +560,8 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@25.2.1/build/js/intlTelInput.min.js"></script>
+
     <script>
         const formularioAudio = document.getElementById('formularioAudio');
         const mensajeEnvio = document.getElementById('mensajeEnvio');
@@ -560,15 +575,56 @@
         const modalConfirmacion = document.getElementById('modalConfirmacion');
         const botonModalOk = document.getElementById('botonModalOk');
 
+        const celularVisible = document.getElementById('celularVisible');
+        const celularOculto = document.getElementById('celular');
+
+        const iti = window.intlTelInput(celularVisible, {
+            initialCountry: "bo",
+            preferredCountries: ["bo", "ar", "cl", "pe", "br", "es", "us"],
+            separateDialCode: true,
+            nationalMode: false,
+            formatAsYouType: true,
+            loadUtils: () => import("https://cdn.jsdelivr.net/npm/intl-tel-input@25.2.1/build/js/utils.js")
+        });
+
+        function obtenerCelularInternacional() {
+            let numeroCompleto = "";
+
+            if (iti && typeof iti.getNumber === "function") {
+                numeroCompleto = iti.getNumber();
+            }
+
+            if (!numeroCompleto) {
+                const pais = iti.getSelectedCountryData();
+                const numeroSinCodigo = celularVisible.value.replace(/\D/g, "");
+
+                if (pais && pais.dialCode && numeroSinCodigo) {
+                    numeroCompleto = "+" + pais.dialCode + numeroSinCodigo;
+                }
+            }
+
+            return numeroCompleto;
+        }
+
         formularioAudio.addEventListener('submit', function (event) {
             event.preventDefault();
 
             mensajeEnvio.className = 'mensaje-envio';
             mensajeEnvio.textContent = '';
 
+            const celularCompleto = obtenerCelularInternacional();
+
+            if (!celularCompleto || celularCompleto.replace(/\D/g, "").length < 7) {
+                mensajeEnvio.textContent = 'Escriba un número de WhatsApp válido.';
+                mensajeEnvio.className = 'mensaje-envio error';
+                return;
+            }
+
+            celularOculto.value = celularCompleto;
+
             if (!archivoAudio.files || archivoAudio.files.length === 0) {
                 mensajeEnvio.textContent = 'Selecciona un archivo de audio antes de enviar.';
-                mensajeEnvio.classList.add('error');
+                mensajeEnvio.className = 'mensaje-envio error';
                 return;
             }
 
@@ -578,8 +634,7 @@
 
             if (!extensionPermitida) {
                 mensajeEnvio.textContent = 'Formato no permitido. Usa WAV, MP3, FLAC o AIFF.';
-
-mensajeEnvio.classList.add('error');
+                mensajeEnvio.className = 'mensaje-envio error';
                 return;
             }
 
@@ -625,12 +680,13 @@ mensajeEnvio.classList.add('error');
         botonModalOk.addEventListener('click', function () {
             formularioAudio.reset();
 
-	   archivoNombre.value = '';
-    archivoMime.value = '';
-    archivoBase64.value = '';
+            archivoNombre.value = '';
+            archivoMime.value = '';
+            archivoBase64.value = '';
+            celularOculto.value = '';
 
-    window.location.href = window.location.pathname + '?limpio=' + new Date().getTime();
-    });
+            window.location.href = window.location.pathname + '?limpio=' + new Date().getTime();
+        });
     </script>
 </body>
 </html>
